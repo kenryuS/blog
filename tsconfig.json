@@ -1,0 +1,13 @@
+{
+  // https://nuxt.com/docs/guide/concepts/typescript
+  "extends": "./.nuxt/tsconfig.json",
+  "baseUrl": "./",
+  "paths": {
+      "@utils/*": ["utils/"],
+      "@components/*": ["components"],
+      "@assets/*": ["assets/"],
+      "@server/*": ["server/"]
+  },
+  "allowJs": true,
+  "checkJs": true
+}
