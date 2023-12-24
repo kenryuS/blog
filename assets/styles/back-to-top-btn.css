@@ -1,0 +1,24 @@
+.btn {
+    position: sticky;
+    right: 30px;
+    bottom: 30px;
+    border: 2px black solid;
+    justify-self: right;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    transition: opacity 0.5s, visibility 0.75s;
+    background: #34da79;
+    border-radius: 7px;
+    width: 36px;
+}
+
+.btn-invisible {
+    visibility: hidden;
+    opacity: 0;
+}
+
+.btn-visible {
+    visibility: visible;
+    opacity: 100;
+}

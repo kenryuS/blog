@@ -1,0 +1,39 @@
+.postcard {
+    position: relative;
+    background-color: lightgray;
+    border-radius: 16px;
+    width: min-content;
+}
+
+.postcard a div {
+    display: block;
+    width: 256px;
+    height: 224px;
+    color: black;
+    line-height: 0.9rem;
+    padding: 16px;
+}
+
+.postcard a div:hover {
+    opacity: 0.8;
+}
+
+.postcard a div > * {
+    display: block;
+    margin-bottom: 8px;
+    text-overflow: ellipsis;
+    overflow-inline: hidden;
+    white-space: nowrap;
+}
+
+.postcard a div > h3, small {
+    height: 1em;
+}
+
+.postcard a div > h4 {
+    margin-top: 16px;
+}
+
+.postcard a {
+    text-decoration: none;
+}

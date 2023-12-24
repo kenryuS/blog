@@ -1,13 +1,9 @@
 {
   // https://nuxt.com/docs/guide/concepts/typescript
   "extends": "./.nuxt/tsconfig.json",
-  "baseUrl": "./",
-  "paths": {
-      "@utils/*": ["utils/"],
-      "@components/*": ["components"],
-      "@assets/*": ["assets/"],
-      "@server/*": ["server/"]
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "./",
   },
-  "allowJs": true,
   "checkJs": true
 }

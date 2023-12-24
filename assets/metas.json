@@ -1,0 +1,35 @@
+{
+    "siteMeta": {
+        "name": "kenryuS",
+        "locale": "ja_JP",
+        "lang": "ja",
+        "base_url": "",
+        "charset": "utf-8",
+        "default_twitter_card_type": "summary_large_image",
+        "icon": "/favicon.ico"
+    },
+    "index": {
+        "title": "Home",
+        "description": "kenryuSブログのホームページ",
+        "contentType": "text/html",
+        "ogType": "website",
+        "ogImage": "/default.svg",
+        "path_to_page": "/"
+    },
+    "about": {
+        "title": "About",
+        "description": "kenryuSブログ概要・自己紹介ページ",
+        "contentType": "text/html",
+        "ogType": "profile",
+        "ogImage": "/default.svg",
+        "path_to_page": "/about"
+    },
+    "posts/index": {
+        "title": "ブログ一覧",
+        "description": "kenryuSブログ一覧ページ",
+        "contentType": "text/html",
+        "ogType": "website",
+        "ogImage": "/default.svg",
+        "path_to_page": "/posts"
+    }
+}
