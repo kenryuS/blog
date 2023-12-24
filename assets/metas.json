@@ -3,7 +3,7 @@
         "name": "kenryuS",
         "locale": "ja_JP",
         "lang": "ja",
-        "base_url": "",
+        "base_url": "https://blog-kenryus.vercel.app",
         "charset": "utf-8",
         "default_twitter_card_type": "summary_large_image",
         "icon": "/favicon.ico"
