@@ -9,7 +9,7 @@ import MarkdownItEmoji from 'markdown-it-emoji';
 import MarkdownItTaskLists from 'markdown-it-task-lists';
 import MarkdownItHighlightjs from 'markdown-it-highlightjs';
 import { encode } from '../../utils/content-encode';
-import "../../assets/markdown.css";
+import "~/assets/styles/markdown.css";
 
 const markdown = new MarkdownIt({html: true});
 

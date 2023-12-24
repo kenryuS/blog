@@ -10,7 +10,7 @@ import MarkdownItTaskLists from 'markdown-it-task-lists';
 import MarkdownItHighlightjs from 'markdown-it-highlightjs';
 import { encode } from '../../utils/content-encode.ts';
 import { decode } from '../../utils/content-decode.ts';
-import "../../assets/markdown.css";
+import "~/assets/styles/markdown.css";
 
 const markdown = new MarkdownIt({html: true});
 
