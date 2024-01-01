@@ -25,8 +25,9 @@ if (process.client) {
     
     <main>
         <slot />
-        <GoBackBtn />
     </main>
+
+    <GoBackBtn />
 
     <a href="#App" class="btn" :class="back_to_top_visibility"><Icon name="material-symbols:arrow-upward-rounded" size="36"></Icon></a>
 

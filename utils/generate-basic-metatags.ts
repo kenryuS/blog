@@ -13,7 +13,7 @@ export function genBasicMeta(metas: Object, pageName: String): UseSeoMetaInput {
     ret["ogDescription"] = ret.description;
     ret["ogLocale"] = siteMetaData.locale;
     ret["ogSiteName"] = ret.title;
-    ret["ogUrl"] = "".concat(siteMetaData.name.valueOf(), ret.title.valueOf());
+    ret["ogUrl"] = "".concat(siteMetaData.base_url.valueOf(), val["path_to_page"].valueOf());
     ret["twitter:title"] = ret["title"];
     ret["twitter:description"] = ret.description;
     ret["twitter:image"] = ret.ogImage;

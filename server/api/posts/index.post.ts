@@ -16,10 +16,10 @@ export default defineEventHandler(async (event) => {
     if (body.action === "new") {
         sql_cmd_index = `INSERT INTO indexes (id, series, title, subTitle, coverImg, pubDate, updateDate, slug) VALUES (${Date.parse(body.pubdate)}, "${body.series}", "${body.title}", "${body.subtitle}", "${body.covimg}", "${body.pubdate}", "${body.pubdate}", "${"/posts/" + body.series + "/" +  body.slugname}")`;
 
-        sql_cmd_contents = `INSERT INTO contents (id, series, title, pubDate, updateDate, mdContent, headimage, tags, slug) VALUES (${Date.parse(body.pubdate)}, "${body.series}", "${body.title}", "${body.pubdate}", "${body.pubdate}", '${body.content}', "${body.covimg}", "${body.tags}", "${"/posts/" + body.series + "/" + body.slugname}")`;
+        sql_cmd_contents = `INSERT INTO contents (id, series, title, subTitle, pubDate, updateDate, mdContent, headimage, tags, slug) VALUES (${Date.parse(body.pubdate)}, "${body.series}", "${body.title}", "${body.subtitle}", "${body.pubdate}", "${body.pubdate}", '${body.content}', "${body.covimg}", "${body.tags}", "${"/posts/" + body.series + "/" + body.slugname}")`;
     } else if (body.action === "edit") {
         sql_cmd_index = `UPDATE indexes SET series="${body.series}", title="${body.title}", subTitle="${body.subtitle}", coverImg="${body.covimg}", updateDate="${body.updatedate}", slug="${"/posts/" + body.series + "/" + body.slugname}" WHERE id=${body.id}`;
-        sql_cmd_contents = `UPDATE contents SET mdContent="${body.content}", updateDate="${body.updatedate}", title="${body.title}", series="${body.series}", headimage="${body.covimg}", tags="${body.tags}", slug="${"/posts/" + body.series + "/" + body.slugname}" WHERE id=${body.id}`;
+        sql_cmd_contents = `UPDATE contents SET mdContent="${body.content}", updateDate="${body.updatedate}", title="${body.title}", subTitle="${body.subtitle}", series="${body.series}", headimage="${body.covimg}", tags="${body.tags}", slug="${"/posts/" + body.series + "/" + body.slugname}" WHERE id=${body.id}`;
   }
 
     try {

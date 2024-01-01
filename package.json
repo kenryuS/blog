@@ -12,6 +12,7 @@
   "devDependencies": {
     "@nuxt/devtools": "latest",
     "@nuxt/image": "^1.0.0",
+    "@nuxtjs/i18n": "^8.0.0-rc.11",
     "@nuxtjs/robots": "^3.0.0",
     "@unhead/schema": "^1.8.9",
     "nuxt": "^3.7.4",

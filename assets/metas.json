@@ -31,5 +31,13 @@
         "ogType": "website",
         "ogImage": "/default.svg",
         "path_to_page": "/posts"
+    },
+    "posts/series/index": {
+        "title": "%sでの投稿",
+        "description": "%s内の投稿一覧",
+        "contentType": "text/html",
+        "ogType": "website",
+        "ogImage": "/default.svg",
+        "path_to_page": "/posts/%s"
     }
 }

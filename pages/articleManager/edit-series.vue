@@ -8,7 +8,7 @@ let displayName = ref(data.value?.item[0].displayName);
 let description = ref(data.value?.item[0].description);
 
 const backHome = async () => {
-    await useFetch('/api/series', {method:"post", body: {"series": seriesSlugName.value, "displayName": displayName.value, "displayName_ja": description.value, "action": "edit", "seriesID": id}});
+    await useFetch('/api/series', {method:"post", body: {"series": seriesSlugName.value, "displayName": displayName.value, "description": description.value, "action": "edit", "seriesID": id}});
     navigateTo('/articleManager');
 }
 </script>

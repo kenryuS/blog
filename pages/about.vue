@@ -1,31 +1,14 @@
-<script setup lang="ts">
+<script setup lang="tsx">
 import axios from 'axios';
-import MarkdownIt from 'markdown-it';
-import MarkdownItAnchor from 'markdown-it-anchor';
-import MarkdownItSubscript from 'markdown-it-sub';
-import MarkdownItSuperscript from 'markdown-it-sup';
-import MarkdownItFootnote from 'markdown-it-footnote';
-import MarkdownItMark from 'markdown-it-mark';
-import MarkdownItEmoji from 'markdown-it-emoji';
-import MarkdownItTaskLists from 'markdown-it-task-lists';
-import MarkdownItHighlightjs from 'markdown-it-highlightjs';
 import "../../assets/styles/markdown.css";
 import metas from "../../assets/metas.json";
+import customMarkdownIt from '/utils/customized-md-render';
 
-const markdown = new MarkdownIt({html: true});
+const markdown = customMarkdownIt();
 
-markdown
-    .use(MarkdownItAnchor)
-    .use(MarkdownItFootnote)
-    .use(MarkdownItSubscript)
-    .use(MarkdownItSuperscript)
-    .use(MarkdownItMark)
-    .use(MarkdownItEmoji)
-    .use(MarkdownItTaskLists)
-    .use(MarkdownItHighlightjs, {"inline":true})
+const gh_readme_col_label = () => <h2>Github README</h2>;
 
-let loading = ref(true);
-const { data: markdownData } = await axios.get("https://raw.githubusercontent.com/kenryuS/kenryuS/main/README-ja.md").then((response) => {return response}).finally(() => {loading.value = false});
+const { data: markdownData } = await axios.get("https://raw.githubusercontent.com/kenryuS/kenryuS/main/README-ja.md");
 
 const metaTags = genBasicMeta(metas, "about");
 
@@ -34,6 +17,27 @@ useSeoMeta(metaTags);
 
 <template>
     <h1>About Me</h1>
-    <div v-if="loading">Loading...</div>
-    <div v-else v-html="markdown.render(markdownData.toString())" class="MarkdownStyle"></div>
+
+    <h2>プロフィール</h2>
+    <ul>
+      <li>誕生日：8月7日</li>
+      <li>出身地：アメリカ、ペンシルベニア州</li>
+    </ul>
+
+    <h2>連絡先・SNS</h2>
+    <ul>
+      <li>E-mail (Developer): <a href="mailto:kenryudev5894@gmail.com">kenryudev5894@gmail.com</a></li>
+      <li>Github: <a href="https://github.com/kenryuS">kenryuS</a></li>
+    </ul>
+
+    <h2>作業環境</h2>
+    <p><a href="#github_readme">Github README</a>の<a href="#%E3%83%AF%E3%83%BC%E3%82%AF%E3%82%B9%E3%83%86%E3%83%BC%E3%82%B7%E3%83%A7%E3%83%B3%E3%81%AE%E3%82%B9%E3%83%9A%E3%83%83%E3%82%AF">ワークステーション</a>/<a href="#%E3%83%8E%E3%83%BC%E3%83%88pc%E3%81%AE%E3%82%B9%E3%83%9A%E3%83%83%E3%82%AF">ノートPC</a>スペックから。</p>
+
+    <Collapsible :defaultStatus="false" :label="gh_readme_col_label" id="github_readme">
+        <div v-html="markdown.render(markdownData.toString())" class="MarkdownStyle"></div>
+    </Collapsible>
 </template>
+
+<style scoped>
+
+</style>

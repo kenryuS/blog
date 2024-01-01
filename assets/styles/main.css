@@ -8,8 +8,8 @@ main {
 
 @media screen and (max-width: 750px) {
     main {
-      min-height: 92dvh;
-      max-width: 100%;
+      min-height: 80dvh;
+      max-width: 100dvw;
       margin: 0 0;
     }
 }

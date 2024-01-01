@@ -11,7 +11,7 @@ export default defineEventHandler(async (event) => {
     });
 
     try {
-        resJson["items"] = await db.all("SELECT * FROM indexes");
+        resJson["items"] = await db.all("SELECT * FROM indexes ORDER BY id DESC");
     } catch (err: unknown) {
         if (err instanceof Error) {
             console.error(err.message);

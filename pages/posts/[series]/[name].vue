@@ -1,13 +1,5 @@
-<script setup lang="ts">
-import MarkdownIt from 'markdown-it';
-import MarkdownItAnchor from 'markdown-it-anchor';
-import MarkdownItSubscript from 'markdown-it-sub';
-import MarkdownItSuperscript from 'markdown-it-sup';
-import MarkdownItFootnote from 'markdown-it-footnote';
-import MarkdownItMark from 'markdown-it-mark';
-import MarkdownItEmoji from 'markdown-it-emoji';
-import MarkdownItTaskLists from 'markdown-it-task-lists';
-import MarkdownItHighlightjs from 'markdown-it-highlightjs';
+<script setup lang="tsx">
+import customMarkdownIt from '/utils/customized-md-render';
 import { decode } from '../../../utils/content-decode.ts';
 import "../../assets/styles/markdown.css";
 
@@ -28,23 +20,15 @@ const series = () => {
 
 const seriesDisplayName = series();
 const article_headers = ref();
-const markdown = new MarkdownIt({html: true});
-
-markdown
-    .use(MarkdownItAnchor)
-    .use(MarkdownItFootnote)
-    .use(MarkdownItSubscript)
-    .use(MarkdownItSuperscript)
-    .use(MarkdownItMark)
-    .use(MarkdownItEmoji)
-    .use(MarkdownItTaskLists)
-    .use(MarkdownItHighlightjs, {"inline":true})
+const article_headers_md = ref("");
+const tboc_label = <h2>Table of Content</h2>;
+const markdown = customMarkdownIt();
 
 if (blogData.data.value === null || blogData.data.value === undefined || blogItem?.length === 0) {
     throw createError({statusCode: 404, statusMessage: "Post Not Found"});
 }
 
-const articleDescription = `${seriesDisplayName}/${blogItem?.title} - ${(new Date(blogItem?.pubDate)).toLocaleString()}に投稿`;
+const articleDescription = `${seriesDisplayName}/${blogItem?.title} - ${blogItem?.subTitle} - ${(new Date(blogItem?.pubDate)).toLocaleString()}に投稿`;
 
 useSeoMeta({
     title: () => `${seriesDisplayName}/${blogItem?.title}`,
@@ -64,12 +48,21 @@ useSeoMeta({
     twitterImage: () => blogItem?.headimage,
     twitterCard: "summary_large_image",
     articlePublishedTime: () => blogItem?.pubDate,
-    articleTag: () => blogItem?.tags,
+    articleTag: () => blogItem?.tags.split(","),
 });
 
 onMounted(() => {
     article_headers.value = document.getElementsByTagName("article")[0].querySelectorAll("h1,h2,h3");
-    console.log(article_headers.value);
+    for (let i = 0; i < article_headers.value.length; i++) {
+        let tag = article_headers.value[i];
+        if (tag.tagName === "H1") {
+            article_headers_md.value += (`- [${tag.innerText}](#${tag.id})\n`);
+        } else if (tag.tagName === "H2") {
+            article_headers_md.value += (`  - [${tag.innerText}](#${tag.id})\n`);
+        } else if (tag.tagName === "H3") {
+            article_headers_md.value += (`    - [${tag.innerText}](#${tag.id})\n`);
+        }
+    }
 });
 
 definePageMeta({
@@ -82,19 +75,21 @@ definePageMeta({
         <Title>{{ "kenryuS - " + seriesDisplayName + "/" + blogItem?.title }}</Title>
     </Head>
 
-    <NuxtImg :src="blogItem.headimage" class="headimage" />
-    
     <h1>{{ blogItem?.title }}</h1>
     <p>
-        <small>Posted: {{ (new Date(blogItem?.pubDate)).toLocaleString() }}</small>
+        <small>投稿日時: {{ (new Date(blogItem?.pubDate)).toLocaleString() }}</small>
         <br/>
-        <small>Updated: {{ (new Date(blogItem?.updateDate)).toLocaleString() }}</small>
+        <small>更新: {{ (new Date(blogItem?.updateDate)).toLocaleString() }}</small>
     </p>
-    <div>
-      <ul>
-        <li v-for="a in article_headers"><a :href="'#' + a.id">{{ a.innerText }}</a></li>
-      </ul>
+    <div class="articleTags">
+      <a v-for="(a, index) in blogItem.tags.split(',')" :key="index" :href="'/posts/search?kwd='+a"># {{ a }}</a>
     </div>
+    
+    <NuxtImg :src="blogItem.headimage" class="headimage" />
+    
+    <Collapsible :default-status="true" :label="tboc_label">
+    <div class="tboc" v-html="markdown.render(article_headers_md)"></div>
+    </Collapsible>
     <article v-html="markdown.render(decode(blogItem?.mdContent))" class="MarkdownStyle"></article>
 </template>
 
@@ -110,5 +105,30 @@ definePageMeta({
         width: 90%;
         margin: 5% 10%;
     }
+}
+
+.articleTags a {
+    margin: 0 5px;
+    font-weight: bold;
+    border-radius: 32px;
+    background: lightgray;
+    color: darkcyan;
+    padding: 9px;
+    text-decoration: none;
+}
+
+.tboc {
+    background: lightgray;
+    opacity: 0.8;
+}
+
+.tboc li {
+    list-style: circle;
+    margin-left: -2rem;
+}
+
+.tboc li a {
+    color: black;
+    line-height: 1.75rem;
 }
 </style>

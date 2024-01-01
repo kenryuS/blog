@@ -5,6 +5,12 @@
     font-style: normal;
 }
 
+.MarkdownStyle {
+    background: inherit;
+    width: 100%;
+    overflow: auto;
+}
+
 .MarkdownStyle p {
     line-height: 1.5rem;
 }

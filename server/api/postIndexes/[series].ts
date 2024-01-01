@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
     });
 
     try {
-        resJson["items"] = await db.all("SELECT * FROM indexes WHERE series = \'" + seriesName + "\'");
+        resJson["items"] = await db.all("SELECT * FROM indexes WHERE series = \'" + seriesName + "\' ORDER BY id DESC");
     } catch (err: unknown) {
        if (err instanceof Error) {
             console.error(err.message);

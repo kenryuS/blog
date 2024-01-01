@@ -1,28 +1,10 @@
 <script setup lang="ts">
-import MarkdownIt from 'markdown-it';
-import MarkdownItAnchor from 'markdown-it-anchor';
-import MarkdownItSubscript from 'markdown-it-sub';
-import MarkdownItSuperscript from 'markdown-it-sup';
-import MarkdownItFootnote from 'markdown-it-footnote';
-import MarkdownItMark from 'markdown-it-mark';
-import MarkdownItEmoji from 'markdown-it-emoji';
-import MarkdownItTaskLists from 'markdown-it-task-lists';
-import MarkdownItHighlightjs from 'markdown-it-highlightjs';
+import customMarkdownIt from '~/utils/customized-md-render';
 import { encode } from '../../utils/content-encode.ts';
 import { decode } from '../../utils/content-decode.ts';
 import "~/assets/styles/markdown.css";
 
-const markdown = new MarkdownIt({html: true});
-
-markdown
-    .use(MarkdownItAnchor)
-    .use(MarkdownItFootnote)
-    .use(MarkdownItSubscript)
-    .use(MarkdownItSuperscript)
-    .use(MarkdownItMark)
-    .use(MarkdownItEmoji)
-    .use(MarkdownItTaskLists)
-    .use(MarkdownItHighlightjs, {"inline":true})
+const markdown = customMarkdownIt();
 
 const route = useRoute();
 const id = route.query.id;
@@ -39,7 +21,7 @@ let slug = ref(slugParts[slugParts.length - 1]);
 let tags = ref(postData.value.contents[0].tags);
 let covimg = ref(postData.value.indexes[0].coverImg);
 let content = ref(decode(postData.value.contents[0].mdContent));
-let series = "";
+let series = ref(postData.value?.indexes[0].series);
 let preview = ref(markdown.render(""));
 
 const updatePreview = () => {
@@ -68,7 +50,7 @@ updatePreview();
                 
                 <div v-for="a in seriesData?.items" v-if="seriesData !== null">
                     <p><label>
-                        <input @click="series = a.series" name="series" :id="'series_' + a.series" type="radio" form="editPost" required :value="a.series"/>
+                        <input @click="series = a.series" name="series" :id="'series_' + a.series" type="radio" form="editPost" required :value="a.series" :checked="series === a.series"/>
                         {{ a.displayName }}
                     </label></p>
                 </div>

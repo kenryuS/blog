@@ -31,12 +31,6 @@ if (process.client) {
     <a href="#App" class="btn" :class="back_to_top_visibility"><Icon name="material-symbols:arrow-upward-rounded" size="36"></Icon></a>
 </template>
 
-<style>
-@import "assets/styles/back-to-top-btn.css";
-
-@media screen and (max-width: 750px)  {
-    header {
-        display: none;
-    }
-}
+<style scoped>
+@import "~/assets/styles/back-to-top-btn.css";
 </style>
