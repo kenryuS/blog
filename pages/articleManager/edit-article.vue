@@ -44,64 +44,58 @@ updatePreview();
 </script>
 
 <template>
-    <DevOnly>
-        <div class="editor">
-            <h1>Edit Article</h1>
-            <form autocomplete="on" name="editPost" id="editPost" @submit.prevent="onsubmit" @submit="backHome" method="post">
-                <fieldset>
-                <legend>
-                    <h3>Metadata</h3>
-                </legend>
-                <label><h3>Series</h3></label>
-                
-                <div v-for="a in seriesData?.items" v-if="seriesData !== null">
-                    <p><label>
-                        <input @click="series = a.series" name="series" :id="'series_' + a.series" type="radio" form="editPost" required :value="a.series" :checked="series === a.series"/>
-                        {{ a.displayname }}
-                    </label></p>
-                </div>
-                <div v-else>
-                    <p>Error: No Series Found</p>
-                </div>
-                
-                <label><h3>Title</h3></label>
-                <input v-model="title" name="title" id="title" type="text" form="editPost" required/>
+    <div class="editor">
+        <h1>Edit Article</h1>
+        <form autocomplete="on" name="editPost" id="editPost" @submit.prevent="onsubmit" @submit="backHome" method="post">
+            <fieldset>
+            <legend>
+                <h3>Metadata</h3>
+            </legend>
+            <label><h3>Series</h3></label>
             
-                <label><h3>Sub Title</h3></label>
-                <input v-model="subtitle" name="subtitle" id="subtitle" type="text" form="editPost" required/>
+            <div v-for="a in seriesData?.items" v-if="seriesData !== null">
+                <p><label>
+                    <input @click="series = a.series" name="series" :id="'series_' + a.series" type="radio" form="editPost" required :value="a.series" :checked="series === a.series"/>
+                    {{ a.displayname }}
+                </label></p>
+            </div>
+            <div v-else>
+                <p>Error: No Series Found</p>
+            </div>
             
-                <label><h3>Updated Date</h3></label>
-                <input v-model="updatedate" name="updatedate" id="updatedate" type="datetime-local" form="editPost" required/>
-            
-                <label><h3>Cover Image (Path from "/public" directory, precedes "/", Uses "default.png" if none provided)</h3></label>
-                <input v-model="covimg" name="covimg" id="covimg" type="text" form="editPost" required/>
-            
-                <label><h3>Tags, separated by ","</h3></label>
-                <input v-model="tags" name="tags" id="tags" type="text" form="editPost" required/>
-            
-                <label><h3>Slug Name</h3></label>
-                <input v-model="slug" name="slugname" id="slugname" type="text" form="editPost" required/>
-                </fieldset>
-            
-                <fieldset>
-                <legend><h3>Content</h3></legend>
-                <textarea v-model="content" name="content" id="content" rows="24" spellcheck="true" wrap="hard" autocomplete="true" form="editPost" required @input="updatePreview"></textarea>
-                <div>
-                    <h3>Markdown Preview:</h3>
-                    <div class="mdPrev MarkdownStyle" v-html="preview"></div>
-                </div>
-                </fieldset>
-
-                <menu>
-                    <input type="submit" @submit="backHome" form="editPost" value="Update"/>
-                    <NuxtLink to="/articleManager"><button>Cancel</button></NuxtLink>
-                </menu>
-            </form>
-        </div>
-        <template #fallback>
-            <h1>Error!</h1>
-        </template>
-    </DevOnly>
+            <label><h3>Title</h3></label>
+            <input v-model="title" name="title" id="title" type="text" form="editPost" required/>
+        
+            <label><h3>Sub Title</h3></label>
+            <input v-model="subtitle" name="subtitle" id="subtitle" type="text" form="editPost" required/>
+        
+            <label><h3>Updated Date</h3></label>
+            <input v-model="updatedate" name="updatedate" id="updatedate" type="datetime-local" form="editPost" required/>
+        
+            <label><h3>Cover Image (Path from "/public" directory, precedes "/", Uses "default.png" if none provided)</h3></label>
+            <input v-model="covimg" name="covimg" id="covimg" type="text" form="editPost" required/>
+        
+            <label><h3>Tags, separated by ","</h3></label>
+            <input v-model="tags" name="tags" id="tags" type="text" form="editPost" required/>
+        
+            <label><h3>Slug Name</h3></label>
+            <input v-model="slug" name="slugname" id="slugname" type="text" form="editPost" required/>
+            </fieldset>
+        
+            <fieldset>
+            <legend><h3>Content</h3></legend>
+            <textarea v-model="content" name="content" id="content" rows="24" spellcheck="true" wrap="hard" autocomplete="true" form="editPost" required @input="updatePreview"></textarea>
+            <div>
+                <h3>Markdown Preview:</h3>
+                <div class="mdPrev MarkdownStyle" v-html="preview"></div>
+            </div>
+            </fieldset>
+            <menu>
+                <input type="submit" @submit="backHome" form="editPost" value="Update"/>
+                <NuxtLink to="/articleManager"><button>Cancel</button></NuxtLink>
+            </menu>
+        </form>
+    </div>
 </template>
 
 <style scoped>

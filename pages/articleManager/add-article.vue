@@ -35,64 +35,58 @@ const backHome = async () => {
 </script>
 
 <template>
-    <DevOnly>
-        <div class="editor">
-            <h1>Add article</h1>
-            <form autocomplete="on" name="addPost" id="addPost" method="post" @submit.prevent="onsubmit" @submit="backHome">
-                <fieldset>
-                <legend>
-                    <h3>Metadata</h3>
-                </legend>
-                <label><h3>Series</h3></label>
-                
-                <div v-for="a in data" v-if="data !== null">
-                    <p><label>
-                        <input @click="series = a.series" name="series" :id="'series_' + a.series" type="radio" form="addPost" required :value="a.series"/>
-                        {{ a.displayname }}
-                    </label></p>
-                </div>
-                <div v-else>
-                    <p>Error: No Series Found</p>
-                </div>
-                
-                <label><h3>Title</h3></label>
-                <input v-model="title" name="title" id="title" type="text" form="addPost" required/>
+    <div class="editor">
+        <h1>Add article</h1>
+        <form autocomplete="on" name="addPost" id="addPost" method="post" @submit.prevent="onsubmit" @submit="backHome">
+            <fieldset>
+            <legend>
+                <h3>Metadata</h3>
+            </legend>
+            <label><h3>Series</h3></label>
             
-                <label><h3>Sub Title</h3></label>
-                <input v-model="subtitle" name="subtitle" id="subtitle" type="text" form="addPost" required/>
+            <div v-for="a in data" v-if="data !== null">
+                <p><label>
+                    <input @click="series = a.series" name="series" :id="'series_' + a.series" type="radio" form="addPost" required :value="a.series"/>
+                    {{ a.displayname }}
+                </label></p>
+            </div>
+            <div v-else>
+                <p>Error: No Series Found</p>
+            </div>
             
-                <label><h3>Published Date</h3></label>
-                <input v-model="pubdate" name="pubdate" id="pubdate" type="datetime-local" form="addPost" required/>
-            
-                <label><h3>Cover Image (Path from "/public" directory, precedes "/", Uses "default.png" if none provided)</h3></label>
-                <input v-model="covimg" name="covimg" id="covimg" type="text" form="addPost" required/>
-            
-                <label><h3>Tags, separated by ","</h3></label>
-                <input v-model="tags" name="tags" id="tags" type="text" form="addPost" required/>
-            
-                <label><h3>Slug Name</h3></label>
-                <input v-model="slugname" name="slugname" id="slugname" type="text" form="addPost" required/>
-                </fieldset>
-            
-                <fieldset>
-                <legend><h3>Content</h3></legend>
-                <textarea v-model="content" name="content" id="content" rows="24" spellcheck="true" wrap="hard" autocomplete="true" form="addPost" required @input="updatePreview"></textarea>
-                <div>
-                    <h3>Markdown Preview:</h3>
-                    <div class="mdPrev MarkdownStyle" v-html="preview"></div>
-                </div>
-                </fieldset>
-
-                <menu>
-                    <input type="submit" form="addPost" value="Add"/>
-                    <NuxtLink to="/articleManager"><button>Cancel</button></NuxtLink>
-                </menu>
-            </form>
-        </div>
-        <template #fallback>
-            <h1>Error!</h1>
-        </template>
-    </DevOnly>
+            <label><h3>Title</h3></label>
+            <input v-model="title" name="title" id="title" type="text" form="addPost" required/>
+        
+            <label><h3>Sub Title</h3></label>
+            <input v-model="subtitle" name="subtitle" id="subtitle" type="text" form="addPost" required/>
+        
+            <label><h3>Published Date</h3></label>
+            <input v-model="pubdate" name="pubdate" id="pubdate" type="datetime-local" form="addPost" required/>
+        
+            <label><h3>Cover Image (Path from "/public" directory, precedes "/", Uses "default.png" if none provided)</h3></label>
+            <input v-model="covimg" name="covimg" id="covimg" type="text" form="addPost" required/>
+        
+            <label><h3>Tags, separated by ","</h3></label>
+            <input v-model="tags" name="tags" id="tags" type="text" form="addPost" required/>
+        
+            <label><h3>Slug Name</h3></label>
+            <input v-model="slugname" name="slugname" id="slugname" type="text" form="addPost" required/>
+            </fieldset>
+        
+            <fieldset>
+            <legend><h3>Content</h3></legend>
+            <textarea v-model="content" name="content" id="content" rows="24" spellcheck="true" wrap="hard" autocomplete="true" form="addPost" required @input="updatePreview"></textarea>
+            <div>
+                <h3>Markdown Preview:</h3>
+                <div class="mdPrev MarkdownStyle" v-html="preview"></div>
+            </div>
+            </fieldset>
+            <menu>
+                <input type="submit" form="addPost" value="Add"/>
+                <NuxtLink to="/articleManager"><button>Cancel</button></NuxtLink>
+            </menu>
+        </form>
+    </div>
 </template>
 
 <style scoped>

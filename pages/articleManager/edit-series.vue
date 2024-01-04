@@ -20,31 +20,24 @@ const backHome = async () => {
 </script>
 
 <template>
-    <DevOnly>
-        <h1>Edit Series</h1>
-        <form name="editSeries" id="editSeries" @submit.prevent="onsubmit" @submit="backHome">
-            <fieldset>
-                <legend>
-                    <h3>Series Information</h3>
-                </legend>
-
-                <label><h3>Series Slug Name</h3></label>
-                <input name="series" id="series" type="text" form="editSeries" v-model="seriesSlugName" required/>
-
-                <label><h3>Series Display Name</h3></label>
-                <input name="displayName" id="displayName" type="text" form="editSeries" v-model="displayName" required/>
-
-                <label><h3>Series Description</h3></label>
-                <input name="description" id="description" type="text" form="editSeries" v-model="description" required/>
-            </fieldset>
-
-            <input type="hidden" id="seriesID" name="seriesID" :value="id" required/>
-            <input type="hidden" id="action" name="action" value="edit" required/>
-
-            <menu>
-                <input type="submit" form="editSeries" value="Update"/>
-                <NuxtLink to="/articleManager"><button>Cancel</button></NuxtLink>
-            </menu>
-        </form>
-    </DevOnly>
+    <h1>Edit Series</h1>
+    <form name="editSeries" id="editSeries" @submit.prevent="onsubmit" @submit="backHome">
+        <fieldset>
+            <legend>
+                <h3>Series Information</h3>
+            </legend>
+            <label><h3>Series Slug Name</h3></label>
+            <input name="series" id="series" type="text" form="editSeries" v-model="seriesSlugName" required/>
+            <label><h3>Series Display Name</h3></label>
+            <input name="displayName" id="displayName" type="text" form="editSeries" v-model="displayName" required/>
+            <label><h3>Series Description</h3></label>
+            <input name="description" id="description" type="text" form="editSeries" v-model="description" required/>
+        </fieldset>
+        <input type="hidden" id="seriesID" name="seriesID" :value="id" required/>
+        <input type="hidden" id="action" name="action" value="edit" required/>
+        <menu>
+            <input type="submit" form="editSeries" value="Update"/>
+            <NuxtLink to="/articleManager"><button>Cancel</button></NuxtLink>
+        </menu>
+    </form>
 </template>
