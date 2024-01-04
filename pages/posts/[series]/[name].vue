@@ -4,7 +4,7 @@ import { decode } from '../../../utils/content-decode.ts';
 import "../../assets/styles/markdown.css";
 
 const route = useRoute();
-const blogData = await useFetch('/api/posts/', {method: "get", query: {series: route.params.series, post: route.params.name}});
+const blogData = await useFetch('/api/posts/', {method: "get", query: {series: route.params.series, post: route.params.name, datapreset: 0}});
 const blogItem = blogData.data.value[0];
 const seriesData = await useFetch('/api/series', {method: "get"});
 const seriesItems = seriesData.data.value;
