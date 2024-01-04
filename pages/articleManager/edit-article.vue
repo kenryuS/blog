@@ -1,4 +1,10 @@
 <script setup lang="ts">
+const isAuthed = useState('isAuthed');
+
+if (isAuthed.value === false) {
+    navigateTo('/articleManager/login');
+}
+
 import customMarkdownIt from '~/utils/customized-md-render';
 import { encode } from '../../utils/content-encode.ts';
 import { decode } from '../../utils/content-decode.ts';
@@ -10,18 +16,18 @@ const route = useRoute();
 const id = route.query.id;
 const seriesPromise = await useFetch('/api/series', {method: "get"});
 const seriesData = seriesPromise.data;
-const postPromise = await useFetch(`/api/posts/${id}`, {method: "get"});
+const postPromise = await useFetch(`/api/posts/manage/${id}`, {method: "get"});
 const postData = postPromise.data;
 
-let title = ref(postData.value.indexes[0].title);
-let subtitle = ref(postData.value.indexes[0].subTitle);
-let updatedate = ref(postData.value.indexes[0].updateDate);
-const slugParts = postData.value.indexes[0].slug.split('/');
+let title = ref(postData.value[0].title);
+let subtitle = ref(postData.value[0].subtitle);
+let updatedate = ref(postData.value[0].update_date);
+const slugParts = postData.value[0].slug.split('/');
 let slug = ref(slugParts[slugParts.length - 1]);
-let tags = ref(postData.value.contents[0].tags);
-let covimg = ref(postData.value.indexes[0].coverImg);
-let content = ref(decode(postData.value.contents[0].mdContent));
-let series = ref(postData.value?.indexes[0].series);
+let tags = ref(postData.value[0].tags);
+let covimg = ref(postData.value[0].image_path);
+let content = ref(decode(postData.value[0].post_content));
+let series = ref(postData.value[0].series);
 let preview = ref(markdown.render(""));
 
 const updatePreview = () => {
@@ -51,7 +57,7 @@ updatePreview();
                 <div v-for="a in seriesData?.items" v-if="seriesData !== null">
                     <p><label>
                         <input @click="series = a.series" name="series" :id="'series_' + a.series" type="radio" form="editPost" required :value="a.series" :checked="series === a.series"/>
-                        {{ a.displayName }}
+                        {{ a.displayname }}
                     </label></p>
                 </div>
                 <div v-else>

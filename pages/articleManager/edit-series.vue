@@ -1,11 +1,17 @@
 <script setup lang="ts">
+const isAuthed = useState('isAuthed');
+
+if (isAuthed.value === false) {
+    navigateTo('/articleManager/login');
+}
+
 const route = useRoute();
 const id = route.query.id;
 const { data } = await useFetch(`/api/series/${id}`);
 
-let seriesSlugName = ref(data.value?.item[0].series);
-let displayName = ref(data.value?.item[0].displayName);
-let description = ref(data.value?.item[0].description);
+let seriesSlugName = ref(data.value[0].series);
+let displayName = ref(data.value[0].displayname);
+let description = ref(data.value[0].description);
 
 const backHome = async () => {
     await useFetch('/api/series', {method:"post", body: {"series": seriesSlugName.value, "displayName": displayName.value, "description": description.value, "action": "edit", "seriesID": id}});

@@ -1,4 +1,10 @@
 <script setup lang="ts">
+const isAuthed = useState('isAuthed');
+
+if (isAuthed.value === false) {
+    navigateTo('/articleManager/login');
+}
+
 let seriesSlugName = ref("");
 let displayName = ref("");
 let description = ref("");

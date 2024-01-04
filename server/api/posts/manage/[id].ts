@@ -1,10 +1,10 @@
 import { sql } from "@vercel/postgres";
 
 export default defineEventHandler(async (event) => {
-    const query = getQuery(event);
+    const id = getRouterParam(event, "id");
     const client = await sql.connect();
-    
-    await client.sql`DELETE FROM posts WHERE id = ${query.id};`;
 
+    let res = (await client.sql`SELECT * FROM posts WHERE id = ${id}`).rows;
     client.release();
+    return res;
 });

@@ -2,9 +2,9 @@
 import PostCard from "../../components/PostCard.vue";
 import metas from "../../assets/metas.json";
 
-const { data } = await useFetch('/api/postIndexes', {method: "get"});
+const { data } = await useFetch('/api/posts', {method: "get", query: {datapreset: 1}});
 const seriesData = await useFetch('/api/series', {method: "get"});
-const seriesList = seriesData.data.value?.items;
+const seriesList = seriesData.data.value;
 const metaTags = genBasicMeta(metas, "posts/index");
 
 useSeoMeta(metaTags);
@@ -15,12 +15,12 @@ useSeoMeta(metaTags);
 
     <div class="serieslist">
       <h3>シリーズ</h3>
-      <a v-for="a in seriesList" :href="'/posts/' + a.series">{{a.displayName}}</a>
+      <a v-for="a in seriesList" :href="'/posts/' + a.series">{{a.displayname}}</a>
     </div>
     
     <div class="postlist">
         <div>
-            <PostCard v-for="(a, index) in data?.items" :key="index" :index="a"></PostCard>
+            <PostCard v-for="(a, index) in data" :key="index" :index="a"></PostCard>
         </div>
     </div>
 </template>

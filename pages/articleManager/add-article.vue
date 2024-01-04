@@ -1,4 +1,10 @@
 <script setup lang="ts">
+const isAuthed = useState('isAuthed');
+
+if (isAuthed.value === false) {
+    navigateTo('/articleManager/login');
+}
+
 import customMarkdownIt from '~/utils/customized-md-render';
 import { encode } from '../../utils/content-encode';
 import "~/assets/styles/markdown.css";
@@ -39,10 +45,10 @@ const backHome = async () => {
                 </legend>
                 <label><h3>Series</h3></label>
                 
-                <div v-for="a in data?.items" v-if="data !== null">
+                <div v-for="a in data" v-if="data !== null">
                     <p><label>
                         <input @click="series = a.series" name="series" :id="'series_' + a.series" type="radio" form="addPost" required :value="a.series"/>
-                        {{ a.displayName }}
+                        {{ a.displayname }}
                     </label></p>
                 </div>
                 <div v-else>

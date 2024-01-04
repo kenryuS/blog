@@ -2,10 +2,10 @@
 import metas from "../../../assets/metas.json";
 
 const route = useRoute();
-const { data } = await useFetch(`/api/postIndexes/${route.params.series}`);
+const { data } = await useFetch(`/api/posts/${route.params.series}`);
 
-const seriesData = (((await useFetch('/api/series', {method:"get"})).data.value?.items)?.filter((val) => val.series === route.params.series))[0];
-const seriesName = seriesData.displayName;
+const seriesData = (((await useFetch('/api/series', {method:"get"})).data.value).filter((val) => val.series === route.params.series))[0];
+const seriesName = seriesData.displayname;
 const seriesDescription = seriesData.description;
 
 const meta = JSON.parse(JSON.stringify(metas));
@@ -24,9 +24,9 @@ useSeoMeta(metaTags);
 <template>
     <h1>{{ seriesName }}での投稿</h1>
     <p>{{ seriesDescription }}</p>
-    <div v-if="data?.items.length !== 0" class="postlist">
+    <div v-if="data.length !== 0" class="postlist">
         <div>
-            <PostCard v-for="a in data?.items" :index="a"></PostCard>
+            <PostCard v-for="a in data" :index="a"></PostCard>
         </div>
     </div>
     <p v-else style="color: red; font-weight: bolder;">このシリーズには投稿がありません。</p>

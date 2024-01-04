@@ -1,4 +1,9 @@
 <script setup lang="ts">
+const isAuthed = useState('isAuthed');
+
+await callOnce(() => {
+    isAuthed.value = false;
+});
 </script>
 
 <template>

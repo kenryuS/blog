@@ -1,5 +1,5 @@
 <script setup lang="ts">
-  import { Icon } from "#components";
+import { Icon } from "#components";
 const route = useRoute();
 const search_q = ref(route.query.kwd);
 const search_q_temp = ref("");
@@ -28,11 +28,11 @@ async function research() {
     </div>
 
     <div class="search_result">
-      <div class="search_result_entry" v-for="(a, index) in res.item" :key="index">
+      <div class="search_result_entry" v-for="(a, index) in res" :key="index">
         <div>
           <h3><a :href="a.slug">{{ a.title }}</a></h3>
-          <small>{{ a.pubDate }}</small>
-          <p>{{ a.subTitle }}</p>
+          <small>{{ a.pub_date }}</small>
+          <p>{{ a.subtitle }}</p>
         </div>
       </div>
     </div>

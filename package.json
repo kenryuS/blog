@@ -26,8 +26,11 @@
     "vue-tsc": "^1.8.22"
   },
   "dependencies": {
+    "@types/bcrypt": "^5.0.2",
     "@types/markdown-it": "^13.0.2",
+    "@vercel/postgres": "^0.5.1",
     "axios": "^1.5.1",
+    "bcrypt": "^5.1.1",
     "fs": "^0.0.1-security",
     "highlight.js": "^11.9.0",
     "markdown-it": "^13.0.2",

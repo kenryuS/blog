@@ -4,15 +4,15 @@ import { decode } from '../../../utils/content-decode.ts';
 import "../../assets/styles/markdown.css";
 
 const route = useRoute();
-const blogData = await useFetch(`/api/posts/display/${route.params.series}/${route.params.name}`);
-const blogItem = blogData.data.value?.item[0];
+const blogData = await useFetch('/api/posts/', {method: "get", query: {series: route.params.series, post: route.params.name}});
+const blogItem = blogData.data.value[0];
 const seriesData = await useFetch('/api/series', {method: "get"});
-const seriesItems = seriesData.data.value?.items;
+const seriesItems = seriesData.data.value;
 
 const series = () => {
     for (var a = 0; a < seriesItems?.length; a++) {
         if (blogItem?.series === seriesItems[a].series) {
-            return seriesItems[a].displayName;
+            return seriesItems[a].displayname;
         }
     }
     return undefined;
@@ -28,7 +28,7 @@ if (blogData.data.value === null || blogData.data.value === undefined || blogIte
     throw createError({statusCode: 404, statusMessage: "Post Not Found"});
 }
 
-const articleDescription = `${seriesDisplayName}/${blogItem?.title} - ${blogItem?.subTitle} - ${(new Date(blogItem?.pubDate)).toLocaleString()}に投稿`;
+const articleDescription = `${seriesDisplayName}/${blogItem?.title} - ${blogItem?.subtitle} - ${(new Date(blogItem?.pub_date)).toLocaleString()}に投稿`;
 
 useSeoMeta({
     title: () => `${seriesDisplayName}/${blogItem?.title}`,
@@ -42,12 +42,12 @@ useSeoMeta({
     ogType: "article",
     ogTitle: () => `kenryuS - ${seriesDisplayName}/${blogItem?.title}`,
     ogDescription: () => articleDescription,
-    ogImageUrl: () => blogItem?.headimage,
+    ogImageUrl: () => blogItem?.image_path,
     twitterTitle: () => blogItem?.title,
     twitterDescription: () => articleDescription,
-    twitterImage: () => blogItem?.headimage,
+    twitterImage: () => blogItem?.image_path,
     twitterCard: "summary_large_image",
-    articlePublishedTime: () => blogItem?.pubDate,
+    articlePublishedTime: () => blogItem?.pub_date,
     articleTag: () => blogItem?.tags.split(","),
 });
 
@@ -77,20 +77,20 @@ definePageMeta({
 
     <h1>{{ blogItem?.title }}</h1>
     <p>
-        <small>投稿日時: {{ (new Date(blogItem?.pubDate)).toLocaleString() }}</small>
+        <small>投稿日時: {{ (new Date(blogItem?.pub_date)).toLocaleString() }}</small>
         <br/>
-        <small>更新: {{ (new Date(blogItem?.updateDate)).toLocaleString() }}</small>
+        <small>更新: {{ (new Date(blogItem?.update_date)).toLocaleString() }}</small>
     </p>
     <div class="articleTags">
       <a v-for="(a, index) in blogItem.tags.split(',')" :key="index" :href="'/posts/search?kwd='+a"># {{ a }}</a>
     </div>
     
-    <NuxtImg :src="blogItem.headimage" class="headimage" />
+    <NuxtImg :src="blogItem.image_path" class="headimage" />
     
     <Collapsible :default-status="true" :label="tboc_label">
     <div class="tboc" v-html="markdown.render(article_headers_md)"></div>
     </Collapsible>
-    <article v-html="markdown.render(decode(blogItem?.mdContent))" class="MarkdownStyle"></article>
+    <article v-html="markdown.render(decode(blogItem?.post_content))" class="MarkdownStyle"></article>
 </template>
 
 <style>
