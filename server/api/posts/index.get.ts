@@ -16,11 +16,11 @@ export default defineEventHandler(async (event) => {
         const search_slug = `/posts/${query.series}/${query.post}`;
         sql_result = await client.sql`SELECT * FROM posts WHERE slug = ${search_slug};`;
     } else if (dataPreset == DataPreset.IndexOnly) {
-        sql_result = await client.sql`SELECT title, subtitle, image_path, slug, pub_date FROM posts ORDER BY id DESC;`;
+        sql_result = await client.sql`SELECT title, subtitle, image_path, slug, pub_date, image_alt FROM posts ORDER BY id DESC;`;
     } else if (dataPreset == DataPreset.Minimal) {
         sql_result = await client.sql`SELECT title, subtitle, slug, pub_date FROM posts ORDER BY id DESC;`;
     } else if (dataPreset == DataPreset.Management) {
-        sql_result = await client.sql`SELECT id, title, pub_date, slug, series FROM posts ORDER BY id DESC;`;
+        sql_result = await client.sql`SELECT id, title, pub_date, slug, series, image_alt FROM posts ORDER BY id DESC;`;
     } else {
         sql_result = await client.sql`SELECT * FROM posts ORDER BY id DESC;`;
     }

@@ -5,7 +5,7 @@ export default defineEventHandler(async (event) => {
     const plainText = body.pass;
     const config = useRuntimeConfig();
 
-    const hash = config.public.CMS_PASSWD;
+    const hash = config.CMS_PASSWD;
 
     const res = await bcrypt.compareSync(plainText, hash);
 

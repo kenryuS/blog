@@ -27,10 +27,10 @@ function changeStatus() {
 
 <template>
     <div>
-        <div role="button" @click="changeStatus" id="btn">
+        <button @click="changeStatus" id="btn">
             <Icon :name="arrow_icon" size="36" />
             <props.label />
-        </div>
+        </button>
         <div id="collapsible_content" :class="content_visibility">
             <slot />
         </div>
@@ -47,6 +47,7 @@ function changeStatus() {
     text-decoration: underline;
     padding-right: 24px;
     height: 3rem;
+    width: 100%;
 }
 
 #btn:hover {

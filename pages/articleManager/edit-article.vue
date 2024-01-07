@@ -26,6 +26,7 @@ const slugParts = postData.value[0].slug.split('/');
 let slug = ref(slugParts[slugParts.length - 1]);
 let tags = ref(postData.value[0].tags);
 let covimg = ref(postData.value[0].image_path);
+let covimg_alt = ref(postData.value[0].image_alt);
 let content = ref(decode(postData.value[0].post_content));
 let series = ref(postData.value[0].series);
 let preview = ref(markdown.render(""));
@@ -35,7 +36,7 @@ const updatePreview = () => {
 };
 
 const backHome = async () => {
-    await useFetch('/api/posts', {method: "post", body: {"id": id, "series": series, "title": title.value, "subtitle": subtitle.value, "updatedate": updatedate.value, "slugname": slug.value, "tags": tags.value, "content": encode(content.value), "covimg": covimg.value, "action": "edit"}});
+    await useFetch('/api/posts', {method: "post", body: {"id": id, "series": series, "title": title.value, "subtitle": subtitle.value, "updatedate": updatedate.value, "slugname": slug.value, "tags": tags.value, "content": encode(content.value), "covimg": covimg.value, "covimg_alt": covimg_alt.value, "action": "edit"}});
     navigateTo("/articleManager");
 };
 
@@ -74,6 +75,9 @@ updatePreview();
         
             <label><h3>Cover Image (Path from "/public" directory, precedes "/", Uses "default.png" if none provided)</h3></label>
             <input v-model="covimg" name="covimg" id="covimg" type="text" form="editPost" required/>
+
+            <label><h3>Image alt Text</h3></label>
+            <input v-model="covimg_alt" name="covimg_alt" id="covimg_alt" type="text" form="editPost" required/>
         
             <label><h3>Tags, separated by ","</h3></label>
             <input v-model="tags" name="tags" id="tags" type="text" form="editPost" required/>

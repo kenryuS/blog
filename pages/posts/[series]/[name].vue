@@ -4,6 +4,7 @@ import { decode } from '../../../utils/content-decode.ts';
 import "../../assets/styles/markdown.css";
 
 const route = useRoute();
+const config = useRuntimeConfig();
 const blogData = await useFetch('/api/posts/', {method: "get", query: {series: route.params.series, post: route.params.name, datapreset: 0}});
 const blogItem = blogData.data.value[0];
 const seriesData = await useFetch('/api/series', {method: "get"});
@@ -85,7 +86,10 @@ definePageMeta({
       <a v-for="(a, index) in blogItem.tags.split(',')" :key="index" :href="'/posts/search?kwd='+a"># {{ a }}</a>
     </div>
     
-    <NuxtImg :src="blogItem.image_path" class="headimage" />
+    <div class="headimage">
+        <NuxtImg :src="blogItem.image_path" :alt="blogItem.image_alt"/>
+        <small v-if="blogItem.image_alt !== config.public.DEFAULT_IMAGE_ALT">{{ blogItem.image_alt }}</small>
+    </div>
     
     <Collapsible :default-status="true" :label="tboc_label">
     <div class="tboc" v-html="markdown.render(article_headers_md)"></div>
@@ -95,6 +99,13 @@ definePageMeta({
 
 <style>
 .headimage {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex-wrap: nowrap;
+}
+
+.headimage > img {
     width: 75%;
     display: flex;
     margin: auto;

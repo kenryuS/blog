@@ -9,6 +9,7 @@ import customMarkdownIt from '~/utils/customized-md-render';
 import { encode } from '../../utils/content-encode';
 import "~/assets/styles/markdown.css";
 
+const config = useRuntimeConfig();
 const markdown = customMarkdownIt();
 
 let series = "";
@@ -16,6 +17,7 @@ let title = ref("");
 let subtitle = ref("");
 let pubdate = ref("");
 let covimg = ref("/default.svg");
+let covimg_alt = ref(config.public.DEFAULT_IMAGE_ALT)
 let tags = ref("");
 let slugname = ref("");
 let content = ref("");
@@ -28,7 +30,7 @@ const updatePreview = () => {
 };
 
 const backHome = async () => {
-    await useFetch('/api/posts', {method: "post", body: {"series": series, "title": title.value, "subtitle": subtitle.value, "pubdate": pubdate.value, "slugname": slugname.value, "tags": tags.value, "content": encode(content.value), "covimg": covimg.value, "action": "new"}});
+    await useFetch('/api/posts', {method: "post", body: {"series": series, "title": title.value, "subtitle": subtitle.value, "pubdate": pubdate.value, "slugname": slugname.value, "tags": tags.value, "content": encode(content.value), "covimg": covimg.value, "covimg_alt": covimg_alt.value, "action": "new"}});
     navigateTo('/articleManager');
 };
 
@@ -65,6 +67,9 @@ const backHome = async () => {
         
             <label><h3>Cover Image (Path from "/public" directory, precedes "/", Uses "default.png" if none provided)</h3></label>
             <input v-model="covimg" name="covimg" id="covimg" type="text" form="addPost" required/>
+
+            <label><h3>Cover Image Alt text</h3></label>
+            <input v-model="covimg_alt" name="covimg_alt" id="covimg_alt" type="text" form="addPost" required/>
         
             <label><h3>Tags, separated by ","</h3></label>
             <input v-model="tags" name="tags" id="tags" type="text" form="addPost" required/>

@@ -36,6 +36,18 @@ export default defineNuxtConfig({
     '/api/**': { cors: true }
   },
 
+  image: {
+    screens: {
+      'xs': 256,
+      'sm': 256,
+      'md': 256,
+      'lg': 256,
+      'xl': 256,
+      'xxl': 256,
+      '2xl': 256
+    },
+  },
+
   pages: true,
 
   app: {
@@ -43,19 +55,25 @@ export default defineNuxtConfig({
       htmlAttrs: {
           lang: 'ja',
       },
+      link: [{
+          rel: "icon",
+          type: "image/svg",
+          href: "/favicon.svg"
+      }],
       charset: 'utf-8',
-      viewport: 'width=device-width, initial-scale=1, maximum-scale=1',
+      viewport: 'width=device-width, initial-scale=1, user-scalable=yes',
     }
   },
 
   runtimeConfig: {
+    POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
+    POSTGRES_HOST: process.env.POSTGRES_HOST,
+    POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
+    POSTGRES_URL: process.env.POSTGRES_URL,
+    POSTGRES_USER: process.env.POSTGRES_USER,
+    CMS_PASSWD: process.env.CMS_PASSWD,
     public: {
-      POSTGRES_DATABASE: process.env.POSTGRES_DATABASE,
-      POSTGRES_HOST: process.env.POSTGRES_HOST,
-      POSTGRES_PASSWORD: process.env.POSTGRES_PASSWORD,
-      POSTGRES_URL: process.env.POSTGRES_URL,
-      POSTGRES_USER: process.env.POSTGRES_USER,
-      CMS_PASSWD: process.env.CMS_PASSWD
+      DEFAULT_IMAGE_ALT: "/default.svg, default image of blog site"
     }
   },
 
