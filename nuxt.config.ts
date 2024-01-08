@@ -29,8 +29,8 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/articleManager/**': { index: false, ssr: true },
-    '/': { prerender: true },
-    '/posts/**': { prerender: true },
+    '/': { prerender: false, ssr: true },
+    '/posts/**': { prerender: false, ssr: true },
     '/posts/search': {ssr: true },
     '/about': { ssr: true },
     '/api/**': { cors: true }
