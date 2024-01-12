@@ -15,8 +15,14 @@ export default defineNuxtConfig({
   },
 
   site: {
-    url: "http://blog-kenryus.vercel.app",
+    url: "https://blog-kenryus.vercel.app",
     indexable: true,
+  },
+
+  sitemap: {
+    sources: [
+      '/api/posts/url'
+    ]
   },
 
   robots: {
@@ -29,9 +35,9 @@ export default defineNuxtConfig({
 
   routeRules: {
     '/articleManager/**': { index: false, ssr: true },
-    '/': { prerender: false, ssr: true },
-    '/posts/**': { prerender: false, ssr: true },
-    '/posts/search': {ssr: true },
+    '/': { ssr: true },
+    '/posts/**': { ssr: true, sitemap: {changefreq: 'daily', priority: 0.3 } },
+    '/posts/search': {ssr: true, index: false },
     '/about': { ssr: true },
     '/api/**': { cors: true }
   },
@@ -77,5 +83,5 @@ export default defineNuxtConfig({
     }
   },
 
-  modules: ['nuxt-icon', '@nuxt/image', 'nuxt-simple-sitemap', 'nuxt-simple-robots']
+  modules: ['nuxt-icon', '@nuxt/image', '@nuxtjs/robots', '@nuxtjs/sitemap']
 })

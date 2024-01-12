@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
+    "build": "nuxt build --dotenv .env.local",
+    "dev": "nuxt dev --dotenv .env.local",
+    "generate": "nuxt generate --dotenv .env.local",
+    "preview": "nuxt preview --dotenv .env.local",
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
@@ -17,8 +17,6 @@
     "@unhead/schema": "^1.8.9",
     "nuxt": "^3.7.4",
     "nuxt-icon": "^0.6.6",
-    "nuxt-simple-robots": "^4.0.0-rc.7",
-    "nuxt-simple-sitemap": "^4.1.6",
     "typescript": "^5.2.2",
     "unhead": "^1.8.9",
     "vue": "^3.3.4",
@@ -26,6 +24,7 @@
     "vue-tsc": "^1.8.22"
   },
   "dependencies": {
+    "@nuxtjs/sitemap": "^5.0.1",
     "@types/bcrypt": "^5.0.2",
     "@types/markdown-it": "^13.0.2",
     "@vercel/postgres": "^0.5.1",

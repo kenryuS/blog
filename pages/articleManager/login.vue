@@ -20,7 +20,7 @@ async function handle() {
 
 <template>
     <h1>Login to CMS</h1>
-    <input type="password" v-model="plainTextPass" />
+    <input type="password" @keyup.enter="handle" v-model="plainTextPass" />
     <button @click="handle" :disabled="login_pending">{{ login_pending ? "logging you in ..." : "login" }}</button>
 </template>
 
