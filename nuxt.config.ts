@@ -34,10 +34,10 @@ export default defineNuxtConfig({
   },
 
   routeRules: {
-    '/articleManager/**': { index: false, ssr: true },
+    '/articleManager/**': { index: false, ssr: false },
     '/': { ssr: true },
-    '/posts/**': { ssr: true, sitemap: {changefreq: 'daily', priority: 0.3 } },
-    '/posts/search': {ssr: true, index: false },
+    '/posts/**': { swr: true, sitemap: {changefreq: 'daily', priority: 0.3 } },
+    '/posts/search': {ssr: false, index: false },
     '/about': { ssr: true },
     '/api/**': { cors: true }
   },

@@ -1,7 +1,7 @@
 <script setup lang="tsx">
 import metas from "~/assets/metas.json";
 
-const { data } = await useFetch("/api/posts/latest/3");
+const { data, refresh } = await useFetch("/api/posts/latest/3");
 const metaTags = genBasicMeta(metas, "index");
 
 useSeoMeta(metaTags);

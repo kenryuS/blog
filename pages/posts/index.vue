@@ -2,7 +2,7 @@
 import PostCard from "../../components/PostCard.vue";
 import metas from "../../assets/metas.json";
 
-const { data } = await useFetch('/api/posts', {method: "get", query: {datapreset: 1}});
+const { data, refresh } = await useFetch('/api/posts', {method: "get", query: {datapreset: 1}});
 const seriesData = await useFetch('/api/series', {method: "get"});
 const seriesList = seriesData.data.value;
 const metaTags = genBasicMeta(metas, "posts/index");
