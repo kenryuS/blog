@@ -6,7 +6,6 @@
     "baseUrl": "./",
     "types": [
         "@nuxt/types",
-        "@nuxtjs/i18n"
     ]
   },
   "checkJs": true
