@@ -37,7 +37,7 @@ export default defineNuxtConfig({
     '/articleManager/**': { index: false, ssr: false },
     '/': { swr: 3600 },
     '/posts': { swr: 3600, sitemap: {changefreq: 'daily', priority: 0.3 } },
-    '/posts/**': { swr: true },
+    '/posts/**': { swr: 3600 },
     '/posts/search': {ssr: false, index: false },
     '/about': { ssr: true },
     '/api/**': { cors: true }
