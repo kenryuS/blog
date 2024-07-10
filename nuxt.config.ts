@@ -2,6 +2,10 @@
 export default defineNuxtConfig({
   devtools: { enabled: true },
 
+  nitro: {
+    preset: "vercel"
+  },
+
   sourcemap: {
     client: true,
     server: true,
